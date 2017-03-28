@@ -1,0 +1,57 @@
+---
+title: "MKTG776 HW7"
+author: "Jordan Farrer"
+date: '2017-03-29'
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
+  bookdown::html_document2:
+    css: style.css
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = 'center', size = 'small', fig.pos = 'H',
+                      fig.width = 6, fig.height = 3.5)
+
+knitr::knit_hooks$set(
+          size = function(before, options, envir) {
+                  if (before) return(paste0("\n \\", options$size, "\n\n"))
+                  else return("\n\n \\normalsize \n")
+                  }
+          , inline = function(x) {if(!is.numeric(x)){ x }else{ prettyNum(round(x,2), big.mark=",") } }
+          )
+```
+
+```{r report-load-packages, results = 'hide', include = FALSE}
+pacman::p_load(tidyverse, forcats, pander, stringr, lubridate, ggrepel, extrafont, jrfTools)
+```
+
+```{r report-additional-setup, include = FALSE}
+options(scipen=999)
+panderOptions('digits', 8)
+panderOptions('round', 4)
+panderOptions('keep.trailing.zeros', TRUE)
+```
+
+# Question 1
+
+We will use the "Regular" churn dataset from HW1:
+
+```{r}
+biz_travel_data <- readxl::read_excel("Biz travel data.xlsx", sheet = 1, 
+                                      col_names = c('N', 'observed'), skip = 2)
+biz_travel_observed <- (readxl::read_excel("Biz travel data.xlsx") %>% names())[2] %>% as.integer()
+```
+
+```{r echo = FALSE}
+biz_travel_data %>%
+  pander(caption = paste0("Business Travel Data for ", biz_travel_observed, " People"))
+```
+
