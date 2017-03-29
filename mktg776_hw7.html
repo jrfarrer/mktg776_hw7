@@ -223,12 +223,10 @@ div.tocify {
 </div>
 
 
-<div id="question-1" class="section level1">
-<h1><span class="header-section-number">1</span> Question 1</h1>
-<p>We will use the “Regular” churn dataset from HW1:</p>
+<div id="results" class="section level1">
+<h1><span class="header-section-number">1</span> Results</h1>
+<p>Below is the business travel dataset used for fitting latent-class count models (NBD and Poission):</p>
 <p></p>
-<pre class="r"><code>biz_travel_data &lt;- readxl::read_excel(&quot;Biz travel data.xlsx&quot;, sheet = 1, col_names = c('N', 'observed'), skip = 2)
-biz_travel_observed &lt;- (readxl::read_excel(&quot;Biz travel data.xlsx&quot;) %&gt;% names())[2] %&gt;% as.integer()</code></pre>
 <p></p>
 <p></p>
 <table style="width:22%;">
@@ -290,6 +288,497 @@ biz_travel_observed &lt;- (readxl::read_excel(&quot;Biz travel data.xlsx&quot;) 
 </tr>
 </tbody>
 </table>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>Below are the parameter estimates for the NBD and zero-inflated NBD models:</p>
+<p></p>
+<table style="width:50%;">
+<caption>Parameter Estimates for NBD and Zero-Inflated NBD Models</caption>
+<colgroup>
+<col width="12%"></col>
+<col width="12%"></col>
+<col width="12%"></col>
+<col width="12%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">model</th>
+<th align="center">r</th>
+<th align="center">alpha</th>
+<th align="center">pi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">NBD</td>
+<td align="center">1.7907</td>
+<td align="center">0.4580</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">ZI-NBD</td>
+<td align="center">5.2410</td>
+<td align="center">1.1594</td>
+<td align="center">0.1461</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>We fit 4 Poission models - one with 1 segments, one with 2 segments, etc. Below are the parameters estimates for lambda (mean of the segments) and theta (% of travelers in each segment).</p>
+<p></p>
+<table style="width:78%;">
+<caption>Parameter Estimates for Latent-Class Poisson Models</caption>
+<colgroup>
+<col width="11%"></col>
+<col width="16%"></col>
+<col width="12%"></col>
+<col width="12%"></col>
+<col width="12%"></col>
+<col width="12%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">model</th>
+<th align="center">parameter</th>
+<th align="center">Seg 1</th>
+<th align="center">Seg 2</th>
+<th align="center">Seg 3</th>
+<th align="center">Seg 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1-Seg</td>
+<td align="center">lambda</td>
+<td align="center">3.8092</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">2-Seg</td>
+<td align="center">lambda</td>
+<td align="center">0.5640</td>
+<td align="center">5.1650</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">2-Seg</td>
+<td align="center">theta</td>
+<td align="center">0.2920</td>
+<td align="center">0.7080</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">3-Seg</td>
+<td align="center">lambda</td>
+<td align="center">0.3134</td>
+<td align="center">7.0418</td>
+<td align="center">3.8593</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">3-Seg</td>
+<td align="center">theta</td>
+<td align="center">0.2288</td>
+<td align="center">0.2492</td>
+<td align="center">0.5221</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">4-Seg</td>
+<td align="center">lambda</td>
+<td align="center">0.0100</td>
+<td align="center">8.0240</td>
+<td align="center">4.4800</td>
+<td align="center">1.0472</td>
+</tr>
+<tr class="odd">
+<td align="center">4-Seg</td>
+<td align="center">theta</td>
+<td align="center">0.1123</td>
+<td align="center">0.1323</td>
+<td align="center">0.5815</td>
+<td align="center">0.1740</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>Below is a table that summarizes each of the six models fit in this exercise:</p>
+<p></p>
+<table style="width:89%;">
+<caption>Latent-Class Count Model Comparison</caption>
+<colgroup>
+<col width="12%"></col>
+<col width="18%"></col>
+<col width="15%"></col>
+<col width="16%"></col>
+<col width="26%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">model</th>
+<th align="center">LL</th>
+<th align="center"># params</th>
+<th align="center">BIC</th>
+<th align="center"><span class="math inline">\(\chi^2\,p-value\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">NBD</td>
+<td align="center">-1089.2522</td>
+<td align="center">2</td>
+<td align="center">2190.7841</td>
+<td align="center">0.0000</td>
+</tr>
+<tr class="even">
+<td align="center">ZI-NBD</td>
+<td align="center">-1067.2224</td>
+<td align="center">3</td>
+<td align="center">2152.8645</td>
+<td align="center">0.7868</td>
+</tr>
+<tr class="odd">
+<td align="center">1-Seg</td>
+<td align="center">-1229.2838</td>
+<td align="center">1</td>
+<td align="center">2464.7075</td>
+<td align="center">0.0000</td>
+</tr>
+<tr class="even">
+<td align="center">2-Seg</td>
+<td align="center">-1072.5437</td>
+<td align="center">3</td>
+<td align="center">2163.5071</td>
+<td align="center">0.0266</td>
+</tr>
+<tr class="odd">
+<td align="center">3-Seg</td>
+<td align="center">-1065.5628</td>
+<td align="center">5</td>
+<td align="center">2161.8250</td>
+<td align="center">0.9886</td>
+</tr>
+<tr class="even">
+<td align="center">4-Seg</td>
+<td align="center">-1065.3431</td>
+<td align="center">7</td>
+<td align="center">2173.6653</td>
+<td align="center">0.9858</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p>We would select the Zero-Inflated NBD model as our final model. This model has the lowest BIC, only 3 parameters, and a significant <span class="math inline">\(p\)</span>-value for the <span class="math inline">\(\chi^2\)</span> goodness-of-fit test. While the 3-segment Poission has a lower log-likelihood, it requires 5 parameters.</p>
+</div>
+<div id="code" class="section level1">
+<h1><span class="header-section-number">2</span> Code</h1>
+<p>Load business travel dataset</p>
+<p></p>
+<pre class="r"><code>biz_travel_data &lt;- readxl::read_excel(&quot;Biz travel data.xlsx&quot;, sheet = 1, 
+                                      col_names = c('N', 'observed'), skip = 2)
+biz_travel_observed &lt;- (readxl::read_excel(&quot;Biz travel data.xlsx&quot;) %&gt;% names())[2] %&gt;% as.integer()</code></pre>
+<p></p>
+<p>Create functions to find parameters to (zero-inflated) NBD model</p>
+<p></p>
+<pre class="r"><code># For Zero-inflated Negative Binomial Distribution, calculates P(X=x) formula
+fn_zinbd_formula &lt;- function(x, r, alpha, pi) {
+  p_x &lt;- exp(lgamma(r + x) - (lgamma(r) + lfactorial(x))) * (alpha / (alpha + 1))^r * (1 / (alpha + 1))^x
+  if(x == 0) {
+    return(pi + (1 - pi) * p_x)  
+  } else {
+    return((1 - pi) * p_x)  
+  }
+}
+
+# Deals with X+ situation
+fn_zinbd_px &lt;- function(x, r, alpha, pi) {
+  x1 &lt;- as.integer(str_replace(x, &quot;\\+&quot; ,&quot;&quot;))
+  if (str_detect(x, &quot;\\+&quot;)) {
+    return(1-sum(purrr::map_dbl(0:(x1-1), fn_zinbd_formula, r, alpha, pi)))
+  } else {
+    return(fn_zinbd_formula(x1, r, alpha, pi))
+  }
+}
+
+# Calculates the log-likelihood of the NBD (including zero-inflated)
+fn_zinbd_ll &lt;- function(par, data, zero_inflated) {
+  
+  pi &lt;- if_else(zero_inflated, par[3], 0)
+  
+  data2 &lt;- 
+    data %&gt;%
+    rowwise() %&gt;%
+    mutate(p_x = fn_zinbd_px(x = N, r = par[1], alpha = par[2], pi = pi)) %&gt;%
+    mutate(ll = observed * log(p_x))
+  
+  return(-sum(data2$ll))
+}
+
+
+fn_zinbd_model &lt;- function(model, data, zero_inflated) {
+  
+  init_par &lt;- list(nbd = list(start = c(1,1), lower = c(0,0), upper = c(Inf,Inf)), 
+                   zinbd = list(start = c(1,1,.5), lower = c(0,0,0), upper = c(Inf,Inf,1)))
+  
+  init_par2 &lt;- init_par[[zero_inflated + 1]]
+  
+  pars &lt;- nlminb(start = init_par2$start, fn_zinbd_ll, lower = init_par2$lower, 
+                 upper = init_par2$upper, data = data, zero_inflated = zero_inflated)$par
+  return(
+    data_frame(model = model, r = pars[1], alpha = pars[2], pi = if_else(zero_inflated, pars[3], NA_real_))
+  )
+  
+}</code></pre>
+<p></p>
+<p>Find the NBD parameters</p>
+<p></p>
+<pre class="r"><code>nbd_params &lt;- 
+fn_zinbd_model(&quot;NBD&quot;, biz_travel_data, FALSE) %&gt;%
+  bind_rows(
+    fn_zinbd_model(&quot;ZI-NBD&quot;, biz_travel_data, TRUE)    
+  ) </code></pre>
+<p></p>
+<p>Create function to find parameters for latent-class poission models</p>
+<p></p>
+<pre class="r"><code># Poission with arbitary number of lambdas and thetas
+fn_lcp_formula &lt;- function(x, lambdas, thetas) {
+  p_x &lt;- sum(dpois(x, lambdas) * exp(thetas) / sum(exp(thetas)))
+  return(p_x)
+}
+
+# Deals with X+ situation
+fn_lcp_px &lt;- function(x, lambdas, thetas) {
+  x1 &lt;- as.integer(str_replace(x, &quot;\\+&quot; ,&quot;&quot;))
+  if (str_detect(x, &quot;\\+&quot;)) {
+    return(1-sum(purrr::map_dbl(0:(x1-1), fn_lcp_formula, lambdas, thetas)))
+  } else {
+    return(fn_lcp_formula(x1, lambdas, thetas))
+  }
+}
+
+# Calculates the log-likelihood of the NBD (including zero-inflated)
+fn_lcp_ll &lt;- function(start, data, seg) {
+  
+  lambdas &lt;- start[1:seg]
+  if (seg &gt; 1) {
+    thetas &lt;- c(start[(seg + 1):length(start)], 0)
+  } else { 
+    thetas &lt;- 0
+  }
+  
+  data2 &lt;- 
+    data %&gt;%
+    rowwise() %&gt;%
+    mutate(p_x = fn_lcp_px(x = N, lambdas, thetas)) %&gt;%
+    mutate(ll = observed * log(p_x))
+  
+  return(-sum(data2$ll))
+}
+
+
+fn_lcp_model &lt;- function(model, data, seg) {
+  
+  start &lt;- c(runif(seg, 1, 1), runif(seg-1, -1, 1))
+  lower &lt;- c(rep(0.01, seg), rep(-Inf, seg - 1))
+  upper &lt;- rep(Inf, seg)
+  
+  pars &lt;- nlminb(start = start, fn_lcp_ll, lower = lower, upper = upper,  
+                 data = data, seg = seg, control = list(x.tol = 1e-10))$par
+  
+  
+  if (seg &gt; 1) {
+    parameters &lt;- c(rep(&quot;lambda&quot;, seg), rep(&quot;theta&quot;, seg))
+    thetas &lt;- exp(c(pars[(seg + 1):length(start)], 0))
+    estimates &lt;- c(pars[1:seg], thetas / sum(thetas))
+  } else {
+    parameters &lt;- &quot;lambda&quot;
+    estimates &lt;- pars
+  }
+
+  return(
+    data_frame(model = rep(model, length(estimates)), parameter = parameters, estimate = estimates)
+  )
+}</code></pre>
+<p></p>
+<p>Find the latent-class poission parameters</p>
+<p></p>
+<pre class="r"><code>lcp_params &lt;- 
+  fn_lcp_model(&quot;1-Seg&quot;, biz_travel_data, 1) %&gt;%
+    bind_rows(
+      fn_lcp_model(&quot;2-Seg&quot;, biz_travel_data, 2), 
+      fn_lcp_model(&quot;3-Seg&quot;, biz_travel_data, 3),
+      fn_lcp_model(&quot;4-Seg&quot;, biz_travel_data, 4)
+    )</code></pre>
+<p></p>
+<p>Calculate the NBD results</p>
+<p></p>
+<pre class="r"><code>fn_zinbd_ll_results &lt;- function(data, r, alpha, pi, total_obs) {
+  
+  params = sum(!is.na(c(r, alpha, pi)))
+  pi &lt;- ifelse(!is.na(pi), pi, 0.0)
+  
+  data2 &lt;- 
+    data %&gt;%
+    rowwise() %&gt;%
+    mutate(p_x = fn_zinbd_px(x = N, r = r, alpha = alpha, pi = pi)) %&gt;%
+    ungroup() %&gt;%
+    mutate(
+      ll = observed * log(p_x)
+      , expected =  total_obs * p_x
+      , chisq = (observed - expected)^2 / expected
+    ) %&gt;%
+    summarise(
+          ll = sum(ll)
+        , chisq = sum(chisq)
+        , percent_expected = sum(expected &gt; 5) / n()
+        , cells = n()
+      ) %&gt;%
+    mutate(
+      BIC = -2 * ll + params * log(total_obs)
+      , p.value = pchisq(chisq, df = cells - params -1, lower.tail = FALSE)
+      , params = params
+    )
+  
+  if (data2$percent_expected &lt; 0.8) {
+    stop(&quot;Less than 80% of the cells have more than 5 counts&quot;)
+  }
+  
+  return(
+    data2 %&gt;%
+      select(
+        LL = ll
+        , `# params` = params
+        , BIC = BIC
+        , `$\\chi^2\\,p-value$` = p.value
+      )
+  )
+  
+}
+
+nbd_results &lt;- 
+  nbd_params %&gt;%
+    crossing(biz_travel_data) %&gt;%
+    group_by(model, r, alpha, pi) %&gt;%
+    nest(.key = travel_data) %&gt;%
+    mutate(pred = pmap(list(travel_data, r, alpha, pi), fn_zinbd_ll_results, biz_travel_observed)) %&gt;%
+    select(model, pred) %&gt;%
+    unnest()</code></pre>
+<p></p>
+<p>Calculate the latent-class poission results</p>
+<p></p>
+<pre class="r"><code># Poission with arbitary number of lambdas and thetas
+fn_lcp_formula2 &lt;- function(x, lambdas, thetas) {
+  if (length(lambdas) == 1) {
+    p_x &lt;- sum(dpois(x, lambdas))
+  } else {
+    p_x &lt;- sum(dpois(x, lambdas) * thetas)
+  }
+  return(p_x)
+}
+
+# Deals with X+ situation
+fn_lcp_px2 &lt;- function(x, lambdas, thetas) {
+  x1 &lt;- as.integer(str_replace(x, &quot;\\+&quot; ,&quot;&quot;))
+  if (str_detect(x, &quot;\\+&quot;)) {
+    return(1-sum(purrr::map_dbl(0:(x1-1), fn_lcp_formula2, lambdas, thetas)))
+  } else {
+    return(fn_lcp_formula2(x1, lambdas, thetas))
+  }
+}
+
+fn_lcp_ll_results &lt;- function(data, lambdas, thetas, total_obs) {
+  
+  if (length(lambdas) == 1) {
+    params &lt;- 1
+  } else {
+    params &lt;- sum(!is.na(c(lambdas, thetas))) - 1
+  }
+    
+  data2 &lt;- 
+    data %&gt;%
+    rowwise() %&gt;%
+    mutate(p_x = fn_lcp_px2(x = N, lambdas, thetas)) %&gt;%
+    ungroup() %&gt;%
+    mutate(
+      ll = observed * log(p_x)
+      , expected =  total_obs * p_x
+      , chisq = (observed - expected)^2 / expected
+    ) %&gt;%
+    summarise(
+          ll = sum(ll)
+        , chisq = sum(chisq)
+        , percent_expected = sum(expected &gt; 5) / n()
+        , cells = n()
+      ) %&gt;%
+    mutate(
+      BIC = -2 * ll + params * log(total_obs)
+      , p.value = pchisq(chisq, df = cells - params -1, lower.tail = FALSE)
+      , params = params
+    )
+  
+  if (data2$percent_expected &lt; 0.8) {
+    stop(&quot;Less than 80% of the cells have more than 5 counts&quot;)
+  }
+  
+  return(
+    data2 %&gt;%
+      select(
+        LL = ll
+        , `# params` = params
+        , BIC = BIC
+        , `$\\chi^2\\,p-value$` = p.value
+      )
+  )
+  
+}
+
+lcp_results &lt;- 
+  lcp_params %&gt;%
+  mutate(num = row_number()) %&gt;%
+  spread(parameter, estimate) %&gt;%
+  select(-num) %&gt;%
+  group_by(model) %&gt;%
+  summarise(
+    lambdas = list(lambda)
+    , thetas = list(theta)
+  ) %&gt;%
+  mutate(
+    lambdas = map(lambdas, na.omit)
+    , thetas = map(thetas, na.omit)
+  ) %&gt;%
+  left_join(
+    lcp_params %&gt;%
+      distinct(model) %&gt;%
+      crossing(biz_travel_data) %&gt;%
+      nest(N, observed)
+    , by = 'model'
+  ) %&gt;%
+  mutate(pred = pmap(list(data, lambdas, thetas), fn_lcp_ll_results, biz_travel_observed)) %&gt;%
+  select(model, pred) %&gt;%
+  unnest()</code></pre>
+<p></p>
+<p>Output summary of each model</p>
+<p></p>
+<pre class="r"><code>nbd_results %&gt;%
+  bind_rows(
+    lcp_results
+  ) %&gt;%
+  pander(caption = &quot;Latent-Class Count Model Comparison&quot;)</code></pre>
 <p></p>
 </div>
 
